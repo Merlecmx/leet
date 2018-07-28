@@ -1,0 +1,1 @@
+void strstr(char p)
