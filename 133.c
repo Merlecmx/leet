@@ -10,6 +10,7 @@
 
 struct UndirectedGraphNode * dfs(struct UndirectedGraphNode *graph, int *has, struct UndirectedGraphNode ** save)
 {
+    
     if (has[graph->label + POS]) return save[graph->label + POS];
     struct UndirectedGraphNode *nd = malloc(sizeof(struct UndirectedGraphNode));
     has[graph->label + POS] = 1;
@@ -33,7 +34,7 @@ struct UndirectedGraphNode *cloneGraph(struct UndirectedGraphNode *graph) {
     if (!graph) return NULL;
     int *has  = (int *) malloc(4* 20000);
     memset(has, 0, 4*20000);
-    struct UndirectedGraphNode ** save = (struct UndirectedGraphNode **) malloc(20000*sizeof(struct UndirectedGraphNode *));
+    struct UndirectedGraphNode ** save = (struct UndirectedGraphNode **) malloc(20000*4);
     
     return dfs(graph, has, save);
 }
