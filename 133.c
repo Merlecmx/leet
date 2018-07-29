@@ -10,7 +10,6 @@
 
 struct UndirectedGraphNode * dfs(struct UndirectedGraphNode *graph, int *has, struct UndirectedGraphNode ** save)
 {
-    
     if (has[graph->label + POS]) return save[graph->label + POS];
     struct UndirectedGraphNode *nd = malloc(sizeof(struct UndirectedGraphNode));
     has[graph->label + POS] = 1;
