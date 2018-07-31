@@ -8,21 +8,21 @@ typedef struct{
         int vexnum;
         }MGraph;
  
-void createMGraph(MGraph *mg)
+void createMGraph(MGraph *mg,int t)
 {
-     int i,j,n;
-     scanf("%d",&(mg->vexnum));
+     int i,j,length;
+     mg->vexnum = t;
      for (i = 0;i < mg->vexnum;i++)
          mg->vexs[i] = i+1;
      for (i = 0;i < mg->vexnum;i++)
      {
          for (j = 0;j < mg->vexnum;j++)
          {
-             scanf("%d",&n);
-             if (n == 0)
+             scanf("%d",&length);
+             if (length == 0)
                  mg->arcs[i][j] = INT_MAX;
              else
-                 mg->arcs[i][j] = n;
+                 mg->arcs[i][j] = length;
          }
      }
 }
@@ -56,7 +56,7 @@ int PRIM(MGraph mg)
         }
     }
     visited[id-1] = 1;
-    for(i = 1;i < mg.vexnum;i++)   //剩下vexnum-1 个点 
+    for(i = 1;i < mg.vexnum;i++)    //剩下vexnum-1 个点 
     {
         int min = INT_MAX,index = id-1;
         for (k = 0;k < mg.vexnum;k++)     // 获取下一个点位置 
@@ -84,9 +84,12 @@ int PRIM(MGraph mg)
 
 int main()
 {
-    MGraph G;
-    createMGraph(&G);
-    printf("%d",PRIM(G));
+    int t;
+    while (scanf("%d",&t) != EOF){
+        MGraph G;
+        createMGraph(&G,t);
+        printf("%d",PRIM(G));
+        }
     system("pause");
     return 0;
 }
