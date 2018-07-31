@@ -40,7 +40,7 @@ int PRIM(MGraph mg,int n)
         closedge[i].lowcost = 0;
         closedge[j].lowcost = 0;
     }
-    while (closedge[n].lowcost = 0)
+    while (closedge[n].lowcost == 0)
     {
        n++;
        if (n == mg.vexnum)
