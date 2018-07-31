@@ -13,7 +13,7 @@ void createMGraph(MGraph *mg)
      int i,j;
      scanf("%d",&(mg->vexnum));
      getchar();
-     for (int i = 0;i < mg->vexnum;i++)
+     for (i = 0;i < mg->vexnum;i++)
          mg->vexs[i] = i;
      for (i = 0;i < mg->vexnum;i++)
      {
@@ -86,7 +86,7 @@ int main()
 {
     MGraph G;
     createMGraph(&G);
-    return PRIM(G,G.vexs[0]);
+    printf("%d",PRIM(G,G.vexs[0]));
     system("pause");
     return 0;
 }
