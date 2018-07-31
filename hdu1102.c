@@ -30,7 +30,7 @@ typedef struct
 int PRIM(MGraph mg,int n)
 {
     int i,j,k,sum=0;
-    close closedge[size];;
+    close closedge[size];
     int Q,W;
     scanf("%d",&Q);
     W = Q;
