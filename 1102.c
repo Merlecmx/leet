@@ -12,7 +12,7 @@ void createMGraph(MGraph *mg)
 {
      int i,j;
      scanf("%d",&(mg->vexnum));
-     getchar();
+     //getchar();
      for (i = 0;i < mg->vexnum;i++)
          mg->vexs[i] = i;
      for (i = 0;i < mg->vexnum;i++)
@@ -20,7 +20,7 @@ void createMGraph(MGraph *mg)
          for (j = 0;j < mg->vexnum;j++)
          {
              scanf("%d",&(mg->arcs[i][j]));
-             getchar();
+             //getchar();
              //mg->arcs[j][i] = mg->arcs[i][j];
          }
      }
@@ -43,7 +43,7 @@ int PRIM(MGraph mg,int n)
     while (Q--)                   
     {
         scanf("%d %d",&i,&j);
-        getchar();
+        //getchar();
         closedge[i].lowcost = 0;
         closedge[j].lowcost = 0;
     }
@@ -79,7 +79,7 @@ int PRIM(MGraph mg,int n)
             }
         }
     }
-        return sum;
+    return sum;
 }
 
 int main()
@@ -87,6 +87,6 @@ int main()
     MGraph G;
     createMGraph(&G);
     printf("%d",PRIM(G,G.vexs[0]));
-    system("pause");
+    //system("pause");
     return 0;
 }
