@@ -12,17 +12,12 @@ void createMGraph(MGraph *mg)
 {
      int i,j;
      scanf("%d",&(mg->vexnum));
-     //getchar();
      for (i = 0;i < mg->vexnum;i++)
          mg->vexs[i] = i;
      for (i = 0;i < mg->vexnum;i++)
      {
          for (j = 0;j < mg->vexnum;j++)
-         {
              scanf("%d",&(mg->arcs[i][j]));
-             //getchar();
-             //mg->arcs[j][i] = mg->arcs[i][j];
-         }
      }
 }
 
@@ -30,22 +25,26 @@ typedef struct
 {
     int adjvex;
     int lowcost;
-}closedge[size];
+}closedge;
   
 int PRIM(MGraph mg,int n)
 {
     int i,j,k,sum=0;
-    closedge closedge;
-    //k = n;
+    closedge closedge[size];;
     int Q,W;
     scanf("%d",&Q);
     W = Q;
     while (Q--)                   
     {
         scanf("%d %d",&i,&j);
-        //getchar();
         closedge[i].lowcost = 0;
         closedge[j].lowcost = 0;
+    }
+    while (closedge[n].lowcost = 0)
+    {
+       n++;
+       if (n == mg.vexnum)
+           n = n - mg.vexnum;
     }
     
     for(i = 0;i < mg.vexnum;i++)
@@ -87,6 +86,5 @@ int main()
     MGraph G;
     createMGraph(&G);
     printf("%d",PRIM(G,G.vexs[0]));
-    //system("pause");
     return 0;
 }
