@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<limits.h>
-#define size 100
+#define MAX_SIZE 100
 typedef struct{
-        int vexs[size];
-        int arcs[size][size];
+        int vexs[MAX_SIZE];
+        int arcs[MAX_SIZE][MAX_SIZE];
         int vexnum;
         }MGraph;
  
@@ -37,7 +37,7 @@ int PRIM(MGraph mg)
 {
     int i,j,k,sum=0;
     int id = 1;         // 从 点 1 开始跑 
-    AR closedge[size];
+    AR closedge[MAX_SIZE];
     int Q;
     scanf("%d",&Q);
     while (Q--)                   
@@ -46,7 +46,7 @@ int PRIM(MGraph mg)
         mg.arcs[i-1][j-1] = mg.arcs[j-1][i-1] = 0;
     }
     
-    int visited[size] = {0};
+    int visited[MAX_SIZE] = {0};
     for(i = 0;i < mg.vexnum;i++)      //初始化辅助数组 
     {
         if(i != id-1)
@@ -88,7 +88,7 @@ int main()
     while (scanf("%d",&t) != EOF){
         MGraph G;
         createMGraph(&G,t);
-        printf("%d",PRIM(G));
+        printf("%d\n",PRIM(G));
         }
     system("pause");
     return 0;
