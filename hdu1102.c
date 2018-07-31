@@ -25,12 +25,12 @@ typedef struct
 {
     int adjvex;
     int lowcost;
-}closedge;
+}close;
   
 int PRIM(MGraph mg,int n)
 {
     int i,j,k,sum=0;
-    closedge closedge[size];;
+    close closedge[size];;
     int Q,W;
     scanf("%d",&Q);
     W = Q;
