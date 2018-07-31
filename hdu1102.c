@@ -33,9 +33,10 @@ typedef struct
     int lowcost;
 }AR;
   
-int PRIM(MGraph mg,int n)
+int PRIM(MGraph mg)
 {
     int i,j,k,sum=0;
+    int id = 1;         // 从 点 1 开始跑 
     AR closedge[size];
     int Q;
     scanf("%d",&Q);
@@ -46,21 +47,21 @@ int PRIM(MGraph mg,int n)
     }
     
     int visited[size] = {1};
-    for(i = 0;i < mg.vexnum;i++)
+    for(i = 0;i < mg.vexnum;i++)      //初始化辅助数组 
     {
-        if(i != n)
+        if(i != id-1)
         {
-            closedge[i].lowcost = mg.arcs[n][i];
-            closedge[i].adjvex = n;
+            closedge[i].lowcost = mg.arcs[id-1][i];
+            closedge[i].adjvex = id;
         }
     }
-    visited[n] = 0;
+    visited[id-1] = 0;
     for(i = 1;i < mg.vexnum;i++)
     {
-        int min = INT_MAX,index = n;
+        int min = INT_MAX,index = id-1;
         for (k = 0;k < mg.vexnum;k++)
         {
-            if(closedge[k].lowcost < min && closedge[k].lowcost!= 0 && closedge[k].lowcost!=INT_MAX)
+            if(visited[k] && closedge[k].lowcost < min)
             {
                 min = closedge[k].lowcost;
                 index = k;
@@ -85,7 +86,7 @@ int main()
 {
     MGraph G;
     createMGraph(&G);
-    printf("%d",PRIM(G,G.vexs[0]));
+    printf("%d",PRIM(G));
     system("pause");
     return 0;
 }
