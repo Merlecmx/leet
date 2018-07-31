@@ -46,7 +46,7 @@ int PRIM(MGraph mg)
         mg.arcs[i-1][j-1] = mg.arcs[j-1][i-1] = 0;
     }
     
-    int visited[size] = {1};
+    int visited[size] = {0};
     for(i = 0;i < mg.vexnum;i++)      //初始化辅助数组 
     {
         if(i != id-1)
@@ -55,24 +55,24 @@ int PRIM(MGraph mg)
             closedge[i].adjvex = id;
         }
     }
-    visited[id-1] = 0;
-    for(i = 1;i < mg.vexnum;i++)
+    visited[id-1] = 1;
+    for(i = 1;i < mg.vexnum;i++)   //剩下vexnum-1 个点 
     {
         int min = INT_MAX,index = id-1;
-        for (k = 0;k < mg.vexnum;k++)
+        for (k = 0;k < mg.vexnum;k++)     // 获取下一个点位置 
         {
-            if(visited[k] && closedge[k].lowcost < min)
+            if(!visited[k] && closedge[k].lowcost < min)
             {
                 min = closedge[k].lowcost;
                 index = k;
             }
         }
         sum += closedge[index].lowcost;
-        visited[index] = 0;
+        visited[index] = 1;
         
-        for (j = 0;j < mg.vexnum;j++)
+        for (j = 0;j < mg.vexnum;j++)     //更新辅助数组 
         {
-            if (visited[j] && mg.arcs[index][j] < closedge[j].lowcost)
+            if (!visited[j] && mg.arcs[index][j] < closedge[j].lowcost)
             {
                closedge[j].adjvex = mg.vexs[index];
                closedge[j].lowcost = mg.arcs[index][j];
