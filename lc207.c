@@ -38,7 +38,7 @@ bool canFinish(int numCourses, int** prerequisites, int prerequisitesRowSize, in
     Graph* G = CreateGraph(numCourses);
     int i;
     int *indegree = (int*)malloc(sizeof(int)* numCourses);       //各顶点的入度
-    memset(indegree,0,sizeof(indegree));
+    memset(indegree,0,numCourses*sizeof(int));
     for (i = 0;i < prerequisitesRowSize;i++)
     {
         ArcNode* new = (ArcNode*)malloc(sizeof(ArcNode));
@@ -70,5 +70,8 @@ bool canFinish(int numCourses, int** prerequisites, int prerequisitesRowSize, in
                 Push(S,k);
         }
     }
-    return count == numCourses ;
+    return (count ==numCourses);
+        //return true;
+    //else
+        //return false;
 }
