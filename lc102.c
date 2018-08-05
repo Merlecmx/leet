@@ -11,6 +11,8 @@
  * The sizes of the arrays are returned as *columnSizes array.
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
+
+
 typedef struct{
     struct TreeNode *front;
     struct TreeNode *rear;
@@ -24,8 +26,8 @@ void Push(Queue *ptr,struct TreeNode* p)
 }
 struct TreeNode* Pop(Queue *ptr)
 {
-    return ptr->front++;
     ptr->n--;
+    return ptr->front++;
 }
 int depth(struct TreeNode* p)
 {
@@ -47,9 +49,10 @@ int** levelOrder(struct TreeNode* root, int** columnSizes, int* returnSize)
     Q->front = Q->rear = (struct TreeNode*)malloc(sizeof(struct TreeNode) * 20000);
     struct TreeNode* head = Q->front;
     Q->n = 0;
-    
+
     int **ar = (int**)malloc(*returnSize * sizeof(int*));
     *columnSizes= (int*)malloc(*returnSize * sizeof(int));
+    memset(*columnSizes,0,*returnSize*sizeof(int));
     int i;
     int level = 0;
     struct TreeNode* p = root;
@@ -58,6 +61,7 @@ int** levelOrder(struct TreeNode* root, int** columnSizes, int* returnSize)
     {
         int size = Q->n;
         ar[level] = (int*)malloc(sizeof(int)*size);
+        
         for (i = 0; i < size;i++)
         {
             p = Pop(Q);
