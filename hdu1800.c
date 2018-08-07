@@ -5,12 +5,12 @@ int S_cmp(const void *a,const void *b)
 {
     return strcmp((char*)a,(char*)b);
 }
-    
+char ar[3002][32];  
 int main()
 {
     int i,j,n;
     int count,max;
-    char ar[3002][32];
+    //char ar[3002][32];
     while (scanf("%d",&n) != EOF)
     {
         for (i = 0;i < n;i++)
@@ -30,8 +30,8 @@ int main()
             {
                 if (count > max){
                     max = count;
-                    count = 0;
                 }
+                count = 0;
             }
         }
         if (count > max)
