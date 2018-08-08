@@ -1,7 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include<stdbool.h>
+#include <stdbool.h>
+#define LH 1
+#define EH 0
+#define RH -1
 typedef struct node{
         char res[31];
         int num;
@@ -14,7 +17,7 @@ node* creatnode(char* s)
       strcpy(p->res,s);
       p->l = p->r = NULL;
       p->num = 1;
-      p->bf = 0;
+      p->bf = EH;
       return p;
 }
 void r_rotate(node** root)
@@ -34,20 +37,21 @@ void l_rotate(node** root)
 void left_balance(node** root)
 {
     node* lc = (*root)->l;
+    node* rd = NULL;
     switch(lc->bf)
     {
-        case 1:
-            (*root)->bf = lc->bf = 0;
+        case LH:
+            (*root)->bf = lc->bf = EH;
             r_rotate(root);
             break;
-        case -1:
-            node *rd = lc->r;
+        case RH:
+            rd = lc->r;
             switch(rd->bf){
-                case 1:(*root)->bf = -1; lc->bf = 0; break;
-                case 0:(*root)->bf = lc->bf = 0; break;
-                case -1:(*root)->bf = 0; lc->bf = 1; break;
+                case LH:(*root)->bf = RH; lc->bf = EH; break;
+                case EH:(*root)->bf = lc->bf = EH; break;
+                case RH:(*root)->bf = EH; lc->bf = LH; break;
             }
-            rd->bf=0;
+            rd->bf=EH;
             l_rotate(&((*root)->l));
             r_rotate(root);
     }
@@ -55,21 +59,22 @@ void left_balance(node** root)
 void right_balance(node** root)
 {
     node* rc = (*root)->r;
+    node* ld = NULL;
     switch(rc->bf)
     {
-        case -1:
-            (*root)->bf = rc->bf = 0;
+        case RH:
+            (*root)->bf = rc->bf = EH;
             l_rotate(root);
             break;
-        case 1:
-            node *ld = rc->l;
+        case LH:
+            ld = rc->l;
             switch(ld->bf)
             {
-                case 1: (*root)->bf = 0; rc->bf = -1; break;
-                case 0: (*root)->bf = rc->bf = 0; break;
-                case -1: (*root)->bf = 1; rc->bf = 0;break;
+                case LH: (*root)->bf = EH; rc->bf = RH; break;
+                case EH: (*root)->bf = rc->bf = EH; break;
+                case RH: (*root)->bf = LH; rc->bf = EH;break;
             }
-            ld->bf = 0;
+            ld->bf = EH;
             r_rotate(&((*root)->r));
             l_rotate(root);
     }
@@ -100,9 +105,9 @@ bool insert_avl(node** root,char* s,bool* taller)
         if(!insert_avl(&((*root)->l),s,taller))return false;
         if(taller){
             switch((*root)->bf){
-                case 1: left_balance(root);*taller = false; break;
-                case 0: (*root)->bf = 1; *taller = true; break;
-                case -1: (*root)->bf = 0; *taller = false; break;
+                case LH: left_balance(root);*taller = false; break;
+                case EH: (*root)->bf = LH; *taller = true; break;
+                case RH: (*root)->bf = EH; *taller = false; break;
             }
         }
     }
@@ -111,9 +116,9 @@ bool insert_avl(node** root,char* s,bool* taller)
         if(!insert_avl(&((*root)->r),s,taller)) return false;
         if(taller){
             switch((*root)->bf){
-                case 1: (*root)->bf = 0; *taller = false; break;
-                case 0: (*root)->bf = -1; *taller = true; break;
-                case -1: right_balance(root); *taller = false; break;
+                case LH: (*root)->bf=EH; *taller = false; break;
+                case EH: (*root)->bf=RH; *taller = true; break;
+                case RH: right_balance(root); *taller = false; break;
             }
         }
     }
