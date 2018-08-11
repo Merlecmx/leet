@@ -3,6 +3,7 @@
 void Merge(int* ar,int* ct,int low,int mid,int high)
 {
      int i = low,j = mid+1;
+     //int i,j = mid+1;
      int k = low;
      while (i <= mid && j <= high)
      {
@@ -15,7 +16,7 @@ void Merge(int* ar,int* ct,int low,int mid,int high)
          ct[k++] = ar[i++];
      while (j <= high)
          ct[k++] = ar[j++];
-     for (int i = low;i <= high;i++)
+     for (i = low;i <= high;i++)
          ar[i] = ct[i];
 }
 void Msort(int* ar,int* ct,int low,int high)
