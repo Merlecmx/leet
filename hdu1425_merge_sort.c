@@ -3,7 +3,6 @@
 void Merge(int* ar,int* ct,int low,int mid,int high)
 {
      int i = low,j = mid+1;
-     //int i,j = mid+1;
      int k = low;
      while (i <= mid && j <= high)
      {
@@ -43,7 +42,7 @@ int main()
         Msort(ar,ct,0,n-1);
         for (i = 0;i < m;i++)
         {
-            printf("%d",ct[i]);
+            printf("%d",ar[i]);
             if (i < m-1)
                 printf(" ");
             else
