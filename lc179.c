@@ -1,42 +1,37 @@
-// δAC 
-int S_cmp(const void *a,const void *b)
+struct object{
+       char buf[16];
+};
+int cmp(const void *a,const void *b)
 {
-    return strcmp((char*)a, (char*)b);
+    char s1[32];
+    char s2[32];
+    s1[0] = '\0';
+    s2[0] = '\0';
+    strcat(s1,((struct object*)a)->buf);
+    strcat(s1,((struct object*)b)->buf);
+    strcat(s2,((struct object*)b)->buf);
+    strcat(s2,((struct object*)a)->buf);
+    return strcmp(s1, s2);
 }
-#define COL 50
 char* largestNumber(int* nums, int numsSize)
 {
-    char (*p)[COL] = (char(*)[COL])malloc(sizeof(char)* numsSize* COL);
+    struct object* p = (struct object*)malloc(sizeof(struct object)* numsSize);
     int i;
     for (i = 0;i < numsSize;i++)
     {
-        sprintf(p[i],"%d",nums[i]);
-        printf("%s  ",p[i]);
+        sprintf(p[i].buf,"%d",nums[i]);
     }
-    printf("\n");
-    qsort(p,numsSize,sizeof(p[0]),S_cmp);
+    qsort(p,numsSize,sizeof(struct object),cmp);
     
-    for (int k = 0;k < numsSize;k++){
-    printf("%s  ",p[k]);
-    }
-    printf("\n");
-    
-    char* ar = (char*)malloc(sizeof(char) * 10000);
-    for (i = 0;i < numsSize;i++)
-    {
-        strcat(ar,p[i]);
-    } 
-    int len = strlen(ar);
-    for (i = 0;i < len;i++)
-    {
-        if (ar[i] != '0')
-            break;
-    }
-    if (i == len)
+    if (p[numsSize-1].buf[0] == '0')
         return "0";
-    else
+    char* ar = (char*)malloc(sizeof(char) * 1000);
+    ar[0] = '\0';
+    for (i = numsSize-1;i >= 0;i--)
     {
-        strcpy(ar,ar+i);
+        strcat(ar,p[i].buf);
     }
+    free(p);
     return ar;
 }
+    
