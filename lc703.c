@@ -20,26 +20,29 @@ KthLargest* kthLargestCreate(int k, int* nums, int numsSize) {
     {
         obj->ar[1] = INT_MIN;
     }
-    //for (int a= 1;a <= k;a++) printf("%d\n",obj->ar[a]);
     return obj;
 }
-
+void HeapAdjust(KthLargest* obj,int left,int right)
+{
+    int key = obj->ar[1];
+    int n = obj->num;
+    int i,ct = left;
+    for (i = 2* ct;i <= n ;i *= 2)
+    {
+        if (i < n && obj->ar[i] > obj->ar[i+1])
+            i++;
+        if (key < obj->ar[i])
+            break;
+        obj->ar[ct] = obj->ar[i];
+        ct = i;
+    }
+    obj->ar[ct] = key;
+}
 int kthLargestAdd(KthLargest* obj, int val) {
     if (obj->ar[1] == INT_MIN || val > obj->ar[1])
     {
-        obj->ar[1] = val;
-        int n = obj->num;
-        int i,ct = 1;
-        for (i = 2* ct;i <= n ;i *= 2)
-        {
-            if (i < n && obj->ar[i] > obj->ar[i+1])
-                i++;
-            if (val < obj->ar[i])
-                break;
-            obj->ar[ct] = obj->ar[i];
-            ct = i;
-        }
-        obj->ar[ct] = val;
+        obj->ar[1] = val;      //替换掉第一个元素
+        HeapAdjust(obj,1,obj->num);       //维护堆
     }
     printf("%d\n",obj->ar[1]);
     return obj->ar[1];
