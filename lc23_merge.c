@@ -35,17 +35,17 @@ struct ListNode* merge(struct ListNode** lists, int left,int right)
     if (left == right)
         return lists[left];
     
-    if (left < right)
-    {
-        int mid = (left+right)/2;
-        struct ListNode* l = merge(lists,left,mid);
-        struct ListNode* r = merge(lists,mid,right);
-        return mergeTwoLists(l,r);
-    }
+     int mid = (left+right)/2;
+     struct ListNode* l = merge(lists,left,mid);
+     struct ListNode* r = merge(lists,mid+1,right);
+     return mergeTwoLists(l,r);
+    
 }
 struct ListNode* mergeKLists(struct ListNode** lists, int listsSize)
 {
-    
+    if (listsSize == 0)
+        return NULL;
+
     return merge(lists,0,listsSize-1);
-    
+
 }
