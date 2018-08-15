@@ -19,9 +19,9 @@ int myhashfun(int k)
 }
 void myHashSetAdd(MyHashSet* obj, int key) {
     int t = myhashfun(key);
-    while (obj->visited[t] != 0 && obj->hash[t] != key)
+    while (obj->visited[t] == 1 && obj->hash[t] != key)
         t = myhashfun(t+1);
-    if (obj->visited[t] == 0)
+    if (obj->visited[t] == 0 || obj->visited[t] == -1 )
     {
         obj->hash[t] = key;
         obj->visited[t] = 1;
@@ -34,9 +34,10 @@ void myHashSetRemove(MyHashSet* obj, int key) {
         t = myhashfun(t+1);
     if (obj->hash[t] == key)
     {
-        obj->hash[t] = 0;
-        obj->visited[t] = 0;
+        obj->hash[t] = -1;
+        obj->visited[t] = -1;
     }
+ 
 }
 
 /** Returns true if this set did not already contain the specified element */
@@ -55,12 +56,3 @@ void myHashSetFree(MyHashSet* obj) {
     free(obj->visited);
     free(obj);
 }
-
-/**
- * Your MyHashSet struct will be instantiated and called as such:
- * struct MyHashSet* obj = myHashSetCreate();
- * myHashSetAdd(obj, key);
- * myHashSetRemove(obj, key);
- * bool param_3 = myHashSetContains(obj, key);
- * myHashSetFree(obj);
- */
