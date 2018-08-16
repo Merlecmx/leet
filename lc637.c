@@ -13,6 +13,7 @@
 typedef struct{
     struct TreeNode *front;
     struct TreeNode *rear;
+    struct TreeNode* head;
     int n;
 }Queue; 
 
@@ -30,8 +31,14 @@ Queue* creatqueue()
 {
     Queue *Q =(Queue*)malloc(sizeof(Queue));
     Q->front = Q->rear = (struct TreeNode*)malloc(sizeof(struct TreeNode) * 20000);
+    Q->head = Q->front;
     Q->n = 0;
     return Q;
+}
+void freequeue(struct TreeNode* Q)
+{
+    free(Q->head);
+    free(Q);
 }
 
 int depth(struct TreeNode* p)
@@ -71,7 +78,6 @@ double* averageOfLevels(struct TreeNode* root, int* returnSize)
         }
         ar[level++] = sum / size;
     }
-    free(Q->front);
-    free(Q);
+    freequeue(Q);
     return ar;  
 }
