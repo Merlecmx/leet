@@ -1,21 +1,17 @@
 #define SIZE 26
 bool isAnagram(char* s, char* t)
 {
-    char* str1 = s;
-    char* str2 = t;
-    int* ar1 = (int*)malloc(sizeof(int)* SIZE);
-    int* ar2 = (int*)malloc(sizeof(int)* SIZE);
-    memset(ar1,0,sizeof(int)* SIZE);
-    memset(ar2,0,sizeof(int)* SIZE);
-    while (*str1)
+    int ar1[SIZE] = {0};
+    int ar2[SIZE] = {0};
+    while (*s)
     {
-        ar1[*str1-'a']++;
-        str1++;
+        ar1[*s-'a']++;
+        s++;
     }
-    while (*str2)
+    while (*t)
     {
-        ar2[*str2 - 'a']++;
-        str2++;
+        ar2[*t - 'a']++;
+        t++;
     }
     for (int i = 0;i < SIZE;i++)
     {

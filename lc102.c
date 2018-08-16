@@ -62,11 +62,11 @@ int** levelOrder(struct TreeNode* root, int** columnSizes, int* returnSize)
         int size = Q->n;
         ar[level] = (int*)malloc(sizeof(int)*size);
         
+        (*columnSizes)[level]=size;
         for (i = 0; i < size;i++)
         {
             p = Pop(Q);
             ar[level][i] = p->val;
-            (*columnSizes)[level]++;
             if (p->left != NULL)
                 Push(Q,p->left);
             if (p->right != NULL)
