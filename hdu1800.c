@@ -3,14 +3,17 @@
 #include<stdlib.h>
 int S_cmp(const void *a,const void *b)
 {
-    return strcmp((char*)a,(char*)b);
+    return strcmp(*(char**)a,*(char**)b);
 }
-char ar[3002][32];  
+char *ar[3002];  
 int main()
 {
     int i,j,n;
     int count,max;
-    //char ar[3002][32];
+    for (i = 0;i < 3002;i++)
+    {
+            ar[i] = (char*)malloc(32 * sizeof(char));
+    }
     while (scanf("%d",&n) != EOF)
     {
         for (i = 0;i < n;i++)
@@ -38,6 +41,6 @@ int main()
             max = count;
         printf("%d\n",max+1);
     }
-    system("pause");
     return 0;
 }
+
