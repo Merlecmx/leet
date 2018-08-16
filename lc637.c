@@ -49,7 +49,6 @@ double* averageOfLevels(struct TreeNode* root, int* returnSize)
 {
     if (!root)  return NULL;
     Queue *Q = creatqueue();
-    struct TreeNode* head = Q->front;
 
     *returnSize = depth(root);
     double* ar = (double*)malloc(*returnSize * sizeof(double));
@@ -72,7 +71,7 @@ double* averageOfLevels(struct TreeNode* root, int* returnSize)
         }
         ar[level++] = sum / size;
     }
+    free(Q->front);
     free(Q);
-    free(head);
     return ar;  
 }
