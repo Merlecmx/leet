@@ -5,7 +5,19 @@ typedef struct {
     int min_n;
 } MedianFinder;
 
-void swim(int* heap,int p)        //元素向上调整
+void maxheap_swim(int* heap,int p)        //元素向上调整
+{
+     int q = p/2;
+     int temp = heap[p];
+     while (q && temp > heap[q])
+     {
+         heap[p] = heap[q];
+         p = q;
+         q = q/2;
+     }
+     heap[p] = temp;
+}
+void minheap_swim(int* heap,int p)        //元素向上调整
 {
      int q = p/2;
      int temp = heap[p];
@@ -17,7 +29,23 @@ void swim(int* heap,int p)        //元素向上调整
      }
      heap[p] = temp;
 }
-void sink(int* heap,int p,int n)         //元素向下调整
+void maxheap_sink(int* heap,int p,int n)         //元素向下调整
+{
+     int q = 2*p;
+     int temp = heap[p];
+     while (q <= n)
+     {
+         if (q < n && heap[q] < heap[q+1])
+             q++;
+         if (temp >= heap[q])
+             break;
+         heap[p] = heap[q];
+         p = q;
+         q *= 2;
+     }
+     heap[p] = temp;
+}
+void minheap_sink(int* heap,int p,int n)         //元素向下调整
 {
      int q = 2*p;
      int temp = heap[p];
@@ -45,15 +73,15 @@ MedianFinder* medianFinderCreate() {
 
 void insert(int* heap,int* n,int num)
 {
-    *n++;
+    (*n)++;
     heap[*n] = num;
 }
 int pop(int* heap,int* n)
 {
     int t = heap[1];
     heap[1] = heap[*n];
-    *n--;
-    sink(heap,1,*n);
+    (*n)--;
+    //sink(heap,1,*n);
     return t;
     
 }
@@ -61,39 +89,40 @@ void medianFinderAddNum(MedianFinder* obj, int num) {
     if (obj->max_n == 0 && obj->min_n == 0)
     {
         insert(obj->maxheap,&(obj->max_n),num);
-        printf("%d\n",obj->maxheap[1]);
-        printf("%d\n",obj->max_n);
+        return ;
     }
     if (num > obj->maxheap[1])
     {
         insert(obj->minheap,&obj->min_n,num);
-        swim(obj->minheap,obj->min_n);
+        minheap_swim(obj->minheap,obj->min_n);
         if (obj->min_n - obj->max_n > 1)
         {
-            int t = pop(obj->minheap,obj->min_n);
+            int t = pop(obj->minheap,&obj->min_n);
+            minheap_sink(obj->minheap,1,obj->min_n);
             insert(obj->maxheap,&obj->max_n,t);
-            swim(obj->maxheap,obj->max_n);
+            maxheap_swim(obj->maxheap,obj->max_n);
         }
     }
     else
     {
-        //obj->max_n++;
         insert(obj->maxheap,&obj->max_n,num);
-        swim(obj->maxheap,obj->min_n);
+        maxheap_swim(obj->maxheap,obj->min_n);
         if (obj->max_n - obj->min_n > 1)
         {
-            int t = pop(obj->maxheap,obj->max_n);
-            insert(obj->minheap,&obj->minheap,t);
-            swim(obj->minheap,obj->min_n);
+            int t = pop(obj->maxheap,&obj->max_n);
+            maxheap_sink(obj->maxheap,1,obj->max_n);
+            insert(obj->minheap,&obj->min_n,t);
+            minheap_swim(obj->minheap,obj->min_n);
+            //for (int i = 1;i <= obj->min_n;i++)
+                //printf("%d  ",obj->minheap[i]);
+            //printf("\n");
         }
     }
-    printf("%d\n",obj->maxheap[1]);
-    printf("%d\n",obj->minheap[1]);
 }
 
 double medianFinderFindMedian(MedianFinder* obj) {
     if (obj->max_n == obj->min_n)
-        return (obj->maxheap[obj->max_n] + obj->minheap[obj->min_n]) / 2.0;
+        return (obj->maxheap[1] + obj->minheap[1]) / 2.0;
     else
         return obj->max_n > obj->min_n ? obj->maxheap[1] : obj->minheap[1];
 }
