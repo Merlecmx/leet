@@ -32,7 +32,7 @@ WordFilter* wordFilterCreate(char** words) {
         int end = 0;
         for (int id = 0;words[i][id];id++)
         {
-            if (words[i][id] < "a" || words[i][id] > 'z')
+            if (words[i][id] < 'a' || words[i][id] > 'z')
                 end = 1;
         }
         if (end)
