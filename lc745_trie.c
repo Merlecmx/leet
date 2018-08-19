@@ -29,6 +29,14 @@ WordFilter* wordFilterCreate(char** words) {
     trie* p = NULL;
     for (i = 0;words[i] != 0;i++)
     {
+        int end = 0;
+        for (int id = 0;words[i][id];id++)
+        {
+            if (words[i][id] < "a" || words[i][id] > 'z')
+                end = 1;
+        }
+        if (end)
+            break;
         j = 0;
         p = obj->pre;
         while (words[i][j] != '\0')         //i号字符串从前到后放入pre字典树 
