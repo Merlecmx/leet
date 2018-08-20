@@ -75,7 +75,7 @@ int wordFilterF(WordFilter* obj, char* prefix, char* suffix) {
 void wordFilterFree(WordFilter* obj) {
     if (!obj)
         return;
-    for (int i = 0;i < 26;i++)
+    for (int i = 0;i < 27;i++)
     {
         wordFilterFree(obj->child[i]);
     }
