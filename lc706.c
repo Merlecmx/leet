@@ -64,10 +64,16 @@ void myHashMapRemove(MyHashMap* obj, int key) {
     if (obj->head[t] != NULL)
     {
         struct node* p = obj->head[t];
-        struct node* fp = NULL;
-        while (p && p->key != key) {fp = p;p = p->next;}
-        if (p != NULL)
+        struct node* fp = p;
+        while (p && p->key != key)
+        {
+            fp = p;
+            p = p->next;
+        }
+        if (p != NULL && fp != p)
             fp->next = p->next;
+        if (fp == p)
+            obj->head[t] = p->next;
     }
 }
 
