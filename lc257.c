@@ -14,11 +14,11 @@ int Leafcount(struct TreeNode* T)
 {
     int n = 0;
     if (!T) return 0;
-	  if(T->left==NULL && T->right==NULL)
-	  {
-		    n++;
-	  }			
-	  return n + Leafcount(T->left) + Leafcount(T->right);
+	if(T->left==NULL && T->right==NULL)
+	{
+		n++;
+	}			
+	return n + Leafcount(T->left) + Leafcount(T->right);
 }
 void strcpy_s(char* s,int* temp,int id)
 {
