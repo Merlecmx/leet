@@ -2,8 +2,13 @@ void change(int* nums,int low,int high,int key)
 {
     while (low <= high)
     {
-        int mid = (low+high) / 2;
-        if (nums[mid] < key)
+        int mid = (low+high) >> 1;
+        if (nums[mid] == key)
+        {
+            low = mid;
+            break;
+        }
+        else if (nums[mid] < key)
             low = mid+1;
         else
             high = mid-1;
