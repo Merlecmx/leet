@@ -50,8 +50,8 @@ char*** solveNQueens(int n, int* returnSize)
     int* board = (int*)malloc(sizeof(int) * n);
     memset(board,0,sizeof(int) * n);
     
-    char*** ar = (char(***))malloc(sizeof(char**) * 10000);
-    for (int i = 0;i < 10000;i++)
+    char*** ar = (char(***))malloc(sizeof(char**) * 400);
+    for (int i = 0;i < 400;i++)
     {
         ar[i] = (char(**))malloc(sizeof(char*) * n);
         for (int j = 0;j < n;j++)
