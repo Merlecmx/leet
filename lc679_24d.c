@@ -92,7 +92,11 @@ bool judgePoint24(int* nums, int numsSize)
         double c = (double)ar[i][2];
         double d = (double)ar[i][3];
         if (fun(a,b,c,d))
+        {
+				    free(ar); 
             return true;
+				}
     }
+    free(ar);
     return false;
 }
