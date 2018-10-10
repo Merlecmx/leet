@@ -22,4 +22,4 @@ public:
         }
         return res > 1;
     }
-};
+};O
