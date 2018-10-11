@@ -16,13 +16,8 @@ public:
                 flag = 0;
             }
         }
-        vector<int> ar;
         if (flag)
-            ar.push_back(1);
-        for (i = 0;i < digits.size();i++)
-        {
-            ar.push_back(digits[i]);
-        }
-        return ar;
+            digits.insert(digits.begin(),1);
+        return digits;
     }
 };
