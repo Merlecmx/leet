@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<iostream>
 #include<string>
+#include<cassert>
+//#define NDUBUGE
 using namespace std;
 class Student {
 public:
@@ -104,6 +106,8 @@ int main()
 {
 	string sa = "liang";
 	Student temp(sa,20,30);
+	assert(temp.name() == sa);      //#1 assert
+	assert(temp.grade() == 50);     //#2 assert
 	cout << "temp is :" << endl;
 	cout <<  temp << endl;
 	cout << "avg_grade = " << temp.avg_grade() << endl;
@@ -112,23 +116,33 @@ int main()
 	cout << endl;
 	
 	Student buff(temp);     //¿½±´¹¹Ôì
+	assert(buff.name() == sa);     //#3 assert
+	assert(buff.grade() == 50);    //#4 assert
 	cout << "buff is :" << endl;
 	cout << buff << endl;
 	cout << endl;
 	
 	Student M;
+	assert(M.name() == "");     //#5 assert
+	assert(M.grade() == 0);     //#6 assert
 	cout << "M is " << M << endl;
 	cout << endl;
 
 	Student N("zhang");
+	assert(N.name() == "zhang");    //#7 assert
+	assert(N.grade() == 0);         //#8 assert
 	cout << "N is " << N << endl;
 	cout << endl;
 	
 	M = temp;
+	assert(M.name() == sa);     //#9 assert
+	assert(M.grade() == 50);    //#10 assert
 	cout << "M is " << M << endl;
 	cout << endl;
 	
 	Student Stu("liang",25,25);
+	assert(Stu.name() == "liang");     //#11 assert
+	assert(Stu.grade() == 50);       //#12 assert
 	if (Stu == temp){
 		Stu += temp;
 		cout << "Stu is " << Stu << endl;
@@ -140,11 +154,12 @@ int main()
 	}
 	
 	Student A;
-	cin >> A;
+	assert(cin >> A);      //#13 assert
 	cout << "A is " << A << endl;
 	cout << endl;
 	
 	Student sum = temp + A;
+	assert(sum.grade() == temp.grade() + A.grade());      //#14 assert
 	cout << sum << endl;
 	cout << endl;
 	
