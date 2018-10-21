@@ -1,14 +1,18 @@
+#include<stdio.h>
+#include<iostream>
+#include<string>
+using namespace std;
 class Student {
 public:
 	Student() = default;
-	Student(const std::string &s) : nameNo(s) { }
-	Student(const std::string &s, int chi, int ma) :
+	Student(const string &s) : nameNo(s) { }
+	Student(const string &s, int chi, int ma) :
 			nameNo(s), chinese(chi), math(ma), sumgrade (chi * ma) { }
-	Student&(const Student&);       //拷贝构造函数 
+	//Student&(const Student&);       //拷贝构造函数 
 	
 	
-	std::string name() const {return nameNo;}
-	std::int grade() const {return sungrade;}
+	string name() const {return nameNo;}
+	int grade() const {return sungrade;}
 	double avg_grade() const;
 	
 	Student& operator =(const Student&);
@@ -24,18 +28,19 @@ public:
 	~Student() = default;     //析构函数 
 	
 private:
-	std::string nameNo;
+	string nameNo;
 	int chinese = 0;
 	int math = 0;
 	int sumgrade = 0;
 };
+/*
 Student::Student&(const Student &item) :
 	nameNo(item.nameNo);
 	chinese(item.chinese);
 	math(item.math);
 	sumgrade(item.sumgrade);
 	{ }
-
+*/
 double Student::avg_grade() const {
 	if (sumgrade)
 		return sumgrade / 2.0;
@@ -58,7 +63,7 @@ Student& Student::operator +=(const Student &item) {
 	return *this;
 }
 
-istream& Student::operator <<(istream &is, Student &item) {
+istream& Student::operator >>(istream &is, Student &item) {
 	is >> item.nameNo >> item.chinese >> item.math;
 	if (is)
 		item.sumgrade = item.chinese + item.math;
@@ -93,4 +98,11 @@ bool Student::operator <(const Student &lhs, const Student &rhs) {
 
 bool Student::operator >(const Student &lhs, const Student &rhs) {
 	return lhs.sumgrade > rhs.sumgrade;
+}
+
+int main()
+{
+	Student temp;
+	printf("%p",temp);
+	return 0;
 }
