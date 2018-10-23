@@ -5,10 +5,13 @@ using namespace std;
 int n;
 class item {
 public:
+	item() = default;
 	int ar[SIZE][SIZE];
-	friend item operator *(const item &lhs, const item &rhs);
+	item& operator *(const item &rhs);
+
 };
-item operator *(const item &lhs, const item &rhs) {
+item& item::operator *(const item &rhs)
+{
 	item temp;
 	int i,j,k;
 	for (i = 0; i < n;i++)
@@ -18,7 +21,7 @@ item operator *(const item &lhs, const item &rhs) {
 			temp.ar[i][j] = 0;
 			for (k = 0;k < n;k++)
 			{
-				temp.ar[i][j] += lhs.ar[i][k] * rhs.ar[k][j];
+				temp.ar[i][j] += ar[i][k] * rhs.ar[k][j];
 			}
 			temp.ar[i][j] %= MOD;
 		}
