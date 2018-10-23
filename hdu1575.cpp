@@ -7,10 +7,10 @@ class item {
 public:
 	item() = default;
 	int ar[SIZE][SIZE];
-	item& operator *(const item &rhs);
-
+	friend item operator *(const item &lhs, const item &rhs);
+	void pow(int k);
 };
-item& item::operator *(const item &rhs)
+item operator *(const item &lhs, const item &rhs)
 {
 	item temp;
 	int i,j,k;
@@ -21,7 +21,7 @@ item& item::operator *(const item &rhs)
 			temp.ar[i][j] = 0;
 			for (k = 0;k < n;k++)
 			{
-				temp.ar[i][j] += ar[i][k] * rhs.ar[k][j];
+				temp.ar[i][j] += lhs.ar[i][k] * rhs.ar[k][j];
 			}
 			temp.ar[i][j] %= MOD;
 		}
@@ -29,7 +29,7 @@ item& item::operator *(const item &rhs)
 	return temp;
 }
 item ans,res;
-void pow(int k)
+void item::pow(int k)
 {
 	int i,j;
 	for (i = 0;i < n;i++)
@@ -61,7 +61,7 @@ int main()
 				cin >> res.ar[i][j];
 			}
 		}
-		pow(k);
+		res.pow(k);
 		int sum = 0;
 		for (i = 0;i < n;i++)
 			sum += ans.ar[i][i];
