@@ -12,7 +12,9 @@ public:
 	void push_back(T ele);
 	T pop_back();
 	
-	T& operator [](size_t i);      //下标运算符 
+	T& operator [](size_t i){      //下标运算符 
+		return data[i];
+	}
 	
 	size_t size(){
 		return size_l;
@@ -86,19 +88,11 @@ template <typename T> T Myvector<T>::pop_back() {
 	else
 		cout << "There are no elements in the container";
 }
-template <typename T> T& Myvector<T>::operator [](size_t i) {
-	if (i >= 0 && i < size_l)
-		return data[i];
-	else
-		cout << i << " out of range";
-}
+
 int main()
 {
 	Myvector<int> ar;
 	assert(ar.size() == 0);
-//	if (ar.empty()){
-//		cout << "Hello World!" << endl;
-//	}
 	assert(ar.empty());
 	cout << "ar is size = " << ar.size() << endl;
 	ar.push_back(2);
