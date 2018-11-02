@@ -27,7 +27,7 @@ private:
 	T* data;
 	size_t size_l;       //当前数组的元素个数 
 	size_t capacity;          //当前数组最大的容量
-	void resize (size_t newcapacity);    //重新分配大小
+	bool resize (size_t newcapacity);    //重新分配大小
 };
 
 template <typename T> Myvector<T>::Myvector() {
@@ -51,35 +51,46 @@ template <typename T> Myvector<T>::Myvector(size_t n,T ele) {
 	}
 }
 
-template <typename T> void Myvector<T>::resize (size_t newcapacity) {
-	assert(newcapacity >= size_l);
-	T* newdata = new T[newcapacity];
+template <typename T> bool Myvector<T>::resize (size_t newcapacity) {
+	if (newcapacity < size_l)
+		return false;
+	T *newdata = new T[newcapacity];
 	for (size_t i = 0;i < size_l;i++){
 		newdata[i] = data[i];
 	}
 	delete []data;
 	data = newdata;
 	capacity = newcapacity;
+	return true;
 }
 
 template <typename T> void Myvector<T>::push_back(T ele) {
-	if (size_l == capacity) {
-		resize(capacity * 2);
+	if (size_l == capacity)
+	{
+		if (!resize(capacity * 2)){
+			cout << "Insert the failure";
+			return ;
+		}
 	}
 	data[size_l++] = ele;
 }
 
 template <typename T> T Myvector<T>::pop_back() {
-	assert(size_l > 0);
-	T ele = data[--size_l];
-	if (size_l == capacity / 4){
-		resize(capacity / 2);
+	if (size_l > 0){
+		T ele = data[--size_l];
+		if (size_l == capacity / 4 && capacity >= 20){     //保证容器内至少有10个元素的内存大小 
+			resize(capacity / 2);
+		}
+		return ele;
 	}
-	return ele;
+	else
+		cout << "There are no elements in the container";
 }
 template <typename T> T& Myvector<T>::operator [](size_t i) {
-	assert(i >= 0 && i <= size_l);
-	return data[i];
+	if (i >= 0 && i < size_l)
+		return data[i];
+	else
+		cout << i << " out of range";
 }
 int main()
 {
@@ -88,19 +99,20 @@ int main()
 	if (ar.empty()){
 		cout << "Hello World!" << endl;
 	}
-	
-	Myvector<double> temp(6);
-	assert(temp.size() == 6);
-
 	cout << "ar is size = " << ar.size() << endl;
 	ar.push_back(2);
 	ar.push_back(4);
-	cout << ar[0] << endl;
+	cout << ar[1] << endl;
+	cout << ar[3] << endl;
 	cout << ar.pop_back() << endl;
 	cout << endl;
+	
+	Myvector<double> temp(6);
+	assert(temp.size() == 6);
 	
 	Myvector<string> S(5,"abc");
 	assert(S.size() == 5);
 	cout << S.pop_back() << endl;
 	return 0;
 }
+
