@@ -70,7 +70,6 @@ template <typename T> void Myvector<T>::push_back(T ele) {
 	if (size_l == capacity)
 	{
 		if (!resize(capacity * 2)){
-			cout << "Insert the failure";
 			return ;
 		}
 	}
@@ -78,15 +77,7 @@ template <typename T> void Myvector<T>::push_back(T ele) {
 }
 
 template <typename T> T Myvector<T>::pop_back() {
-	if (size_l > 0){
-		T ele = data[--size_l];
-		if (size_l == capacity / 4 && capacity >= 20){     //保证容器内至少有10个元素的内存大小 
-			resize(capacity / 2);
-		}
-		return ele;
-	}
-	else
-		cout << "There are no elements in the container";
+		return data[--size_l];
 }
 
 int main()
@@ -94,21 +85,19 @@ int main()
 	Myvector<int> ar;
 	assert(ar.size() == 0);
 	assert(ar.empty());
-	cout << "ar is size = " << ar.size() << endl;
 	ar.push_back(2);
 	ar.push_back(4);
 	assert(ar[0] == 2);
 	assert(ar[1] == 4);
-	cout << ar.pop_back() << endl;
-	cout << endl;
+	assert(ar.pop_back() == 4);
 	
 	Myvector<double> temp(6);
 	assert(temp.size() == 6);
 	
 	Myvector<string> S(5,"abc");
 	assert(S.size() == 5);
-	assert(S[4] == "abc");
-	cout << S.pop_back() << endl;
+	assert(S[3] == "abc");
+	assert(S.pop_back() == "abc");
 	return 0;
 }
 
