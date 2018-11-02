@@ -96,14 +96,15 @@ int main()
 {
 	Myvector<int> ar;
 	assert(ar.size() == 0);
-	if (ar.empty()){
-		cout << "Hello World!" << endl;
-	}
+//	if (ar.empty()){
+//		cout << "Hello World!" << endl;
+//	}
+	assert(ar.empty());
 	cout << "ar is size = " << ar.size() << endl;
 	ar.push_back(2);
 	ar.push_back(4);
-	cout << ar[1] << endl;
-	cout << ar[3] << endl;
+	assert(ar[0] == 2);
+	assert(ar[1] == 4);
 	cout << ar.pop_back() << endl;
 	cout << endl;
 	
@@ -112,6 +113,7 @@ int main()
 	
 	Myvector<string> S(5,"abc");
 	assert(S.size() == 5);
+	assert(S[4] == "abc");
 	cout << S.pop_back() << endl;
 	return 0;
 }
