@@ -14,7 +14,7 @@ public:
             if (s[i] == ' ')
                 count++;
         }
-        count += s[s.size()-1] != ' ';
+        count += s[s.back()] != ' ';
         return count;
     }
 };
