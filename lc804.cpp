@@ -13,16 +13,10 @@ public:
             for (j = 0;j < words[i].size();j++)
             {
                 char ch = words[i][j];
-                s = s + morse[ch-'a'];
+                s.append(morse[ch-'a']);
             }
             mp[s]++;
         }
-        map<string,int>::iterator it;
-        int count = 0;
-        for (it = mp.begin();it != mp.end();it++)
-        {
-            count++;
-        }
-        return count;
+        return mp.size();
     }
 };
