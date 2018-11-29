@@ -8,19 +8,20 @@ public:
         {
             s.clear();
             int k = 0;
-            for (j = 0; emails[i][j] != '@'; j++)
+            string temp = emails[i];
+            for (j = 0; temp[j] != '@'; j++)
             {
-                char ch = emails[i][j];
+                char ch = temp[j];
                 if (ch == '+' || ch == '.')
                 {
-                    s.append(emails[i].begin()+k,emails[i].begin()+j);
-                    k = j+1;
+                    s.append(temp.begin() + k, temp.begin() + j);
+                    k = j + 1;
                     if (ch == '+')
                         break;
                 }
             }
-            j = emails[i].find('@');
-            s.append(emails[i].begin()+j,emails[i].end());
+            j = temp.find('@');
+            s.append(temp.begin()+j, temp.end());
             mp[s]++;
         }
         return mp.size();
