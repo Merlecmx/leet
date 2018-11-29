@@ -9,7 +9,7 @@ public:
         vector<string> number;
         for (auto log : logs)
         {
-            if (log.back() >= 'a' && log.back() <= 'z') {
+            if (islower(log.back()) ) {
                 for (i = 0;log[i] != ' ';i++) ;
                 res.push_back(make_pair(log,log.substr(i+1)));
             }
