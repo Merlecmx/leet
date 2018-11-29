@@ -8,7 +8,7 @@ public:
         {
             s.clear();
             int k = 0;
-            string temp = emails[i];
+            string& temp = emails[i];
             for (j = 0; temp[j] != '@'; j++)
             {
                 char ch = temp[j];
