@@ -10,7 +10,7 @@ public:
                 char_count[s[i]]++;
             }
             for (j = 1;j < s.size();j += 2) {
-                char_count[s[j] - 32]++;     //奇数位的字符转换为大写
+                char_count[toupper(s[j])]++;     //奇数位的字符转换为大写
             }
             res.insert(char_count);
         }
