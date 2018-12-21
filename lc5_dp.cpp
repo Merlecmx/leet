@@ -1,10 +1,11 @@
+int dp[1002][1002];
 class Solution {
 public:
     string longestPalindrome(string s) {
         if (s.empty())
             return "";
         int len = s.size();
-        int dp[len][len];
+//        int dp[len][len];
         int i,j,left = 0;
         int max_len = 1;
         for (i = 0;i < len;i++) {
